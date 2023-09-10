@@ -1,0 +1,139 @@
+/* App.css */
+:root{
+  --blue: #007bff
+}
+
+@keyframes popIn {
+  0% {
+    transform: translateY(100%);
+    opacity: 0%;
+  };
+  100% {
+    transform: translateY(0);
+    opacity: 100%;
+  }
+}
+
+body {
+  /* font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-page {
+  min-height: 100vh;
+  background-color: rgba(0,0,20,1);
+  color: white;
+  /* transition: opacity 0.5s ease, transform 0.5s ease; Apply animation transitions */
+}
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+#home {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: var(--blue);
+  color: white;
+  padding: 20px;
+  /* transform: translateY(20px); Move content down by 20px */
+  /* animation: 1s ease-out 0s 1 popIn; */
+}
+
+section {
+  margin: 100px 20px;
+  opacity: 0; /* Initially, make the content invisible */
+}
+
+.animate {
+  opacity: 1; /* Make content visible */
+  transform: translateY(0); /* Reset transformation */
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(255, 255, 255, 0.06);
+  padding: 30px;
+  /* transform: translateY(60px); Move content down by 20px */
+  animation: 1s ease-out 0s 1 popIn;
+}
+
+.options div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+.description,
+.options {
+  margin: 30px 0;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+.description {
+  /* height: calc(100vh - 2rem + 40px); */
+  height: 30vh;
+  /* transform: translateY(40px); Move content down by 20px */
+  animation: 1s ease-out 0s 1 popIn;
+}
+
+.description * {
+  /* bottom: 0; */
+}
+
+.description p {
+  font-size: 1.2rem;
+  max-width: 30vw;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+input[type="email"] {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.pay-button {
+  background-color: #28a745;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button.pay-button:hover {
+  background-color: #218838;
+}
