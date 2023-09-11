@@ -1,6 +1,12 @@
+import { addToWaitlist } from "./functions/api"
 
 
 export default function Home(){
+
+    async function joinWaitlist(e){
+        e.preventDefault();
+        await addToWaitlist(e.refs.email.value, e.refs.companyName.value);
+    }
     return (
         <div id='home'>
             <section className="description">
@@ -17,8 +23,9 @@ export default function Home(){
                 </div>
                 <div>
                     <h2>Join the Waitlist</h2>
-                    <form>
-                    <input type="email" placeholder="Enter your email" />
+                    <form onSubmit={joinWaitlist}>
+                    <input ref="companyName" type="text" placeholder="Enter your Company name" />
+                    <input ref="email" type="email" placeholder="Enter your email" />
                     <button type="submit">Join</button>
                     </form>
                 </div>
