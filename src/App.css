@@ -95,7 +95,7 @@ h2 {
 }
 
 p {
-  max-width: 60%;
+  max-width: max-content;
   text-align: center;
 }
 

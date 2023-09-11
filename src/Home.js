@@ -46,7 +46,7 @@ export default function Home(){
             <section className="options">
                 <div>
                     <h2>Get Beta Access</h2>
-                    <p>Gain access to our beta version for just $5.</p>
+                    <p>Exclusive Access to the most recent version of the app<br/>Our Phone Number<br/>Currently the app is a calulator to help calulate the cost to bill customers</p>
                     <button className="pay-button" onClick={()=>setBetaOpen(true)}>Join</button>
                 </div>
                 <Dialog
