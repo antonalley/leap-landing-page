@@ -12,7 +12,7 @@ export default function Home(){
             <section className="options">
                 <div>
                     <h2>Get Beta Access</h2>
-                    <p>Gain access to our beta version for just $5</p>
+                    <p>Gain access to our beta version for just $5.</p>
                     <button className="pay-button">$5 Pay Now</button>
                 </div>
                 <div>
