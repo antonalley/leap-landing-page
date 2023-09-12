@@ -40,7 +40,7 @@ export default function Home(){
             <section className="description">
                 <h2>Service Leap CRM</h2>
                 <p>
-                    Easy to use all-encompassing tool for managing your personal window servicing business
+                    Easy to use all-encompassing tool for managing your personal window servicing business. BEST CRM OUT THERE
                 </p>
             </section>
             <section className="options">
