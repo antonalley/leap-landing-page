@@ -1,6 +1,7 @@
 import { addDoc, collection, doc, setDoc } from "@firebase/firestore";
-import { db } from "./fb_init";
+import { db, storage } from "./fb_init";
 import { createUserWithEmailAndPassword, getAuth } from "@firebase/auth";
+import { getDownloadURL, ref } from "firebase/storage";
 
 
 export async function addToWaitlist(email, companyName){
@@ -35,4 +36,9 @@ export async function createAccount(email, password, companyName){
         return false;
     }
     
+}
+
+export async function getVideo(video_name){
+    let url = await getDownloadURL(ref(storage, video_name))
+    return url;
 }
