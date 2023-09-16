@@ -1,4 +1,8 @@
 /* App.css */
+@font-face {
+  font-family: 'Maven Pro';
+  src: url(./fonts/MavenPro-VariableFont_wght.ttf);
+}
 
 @keyframes popIn {
   0% {
@@ -16,17 +20,22 @@ body {
   -webkit-font-smoothing: antialiased;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
 }
 
 .landing-page {
   min-height: 100vh;
+  width: 100%;
   background-color: rgba(0,0,20,1);
   color: white;
+  position: relative;
   /* transition: opacity 0.5s ease, transform 0.5s ease; Apply animation transitions */
 }
 
 * {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Maven Pro';
 }
 
 #home {
@@ -36,21 +45,29 @@ body {
 }
 
 header {
-  background-color: #007bff;
+  background-color: rgba(225, 225, 255, 0.1);
   color: white;
   padding: 20px;
-  /* transform: translateY(20px); Move content down by 20px */
-  /* animation: 1s ease-out 0s 1 popIn; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: #ccc 1px solid;
+  z-index: 100;
+  position: fixed;
+  top:0;
+  left:0;
+  right: 0;
+  transition: all ease-in-out 0.5s;
+}
+
+.header-scrolled {
+  background-color: rgba(0,0,20,1);
 }
 
 section {
   margin: 100px 20px;
-  opacity: 0; /* Initially, make the content invisible */
-}
-
-.animate {
-  opacity: 1; /* Make content visible */
-  transform: translateY(0); /* Reset transformation */
+  animation: 1s ease-out 0s 1 popIn;
+  margin: 30px 0;
 }
 
 .options {
@@ -58,8 +75,6 @@ section {
   flex-direction: row;
   background-color: rgba(255, 255, 255, 0.06);
   padding: 30px;
-  /* transform: translateY(60px); Move content down by 20px */
-  animation: 1s ease-out 0s 1 popIn;
 }
 
 .options div {
@@ -67,16 +82,47 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+}
+
+.points {
+  max-width: 20vw;
+}
+.points li {
+  margin-bottom: 10px;
+}
+
+#mission-img {
+  float: right;
+  margin: 0 0 10px 10px; /* Adjust margins as needed */
+  width: 50%;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-point {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.timeline-marker {
+  padding: 5px !important;
+  width: 10px;
+  height: 10px;
+  background-color: #007bff;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.timeline-point.completed .timeline-marker {
+  background-color: #28a745;
 }
 
 h1 {
   font-size: 2.5rem;
-}
-
-.description,
-.options {
-  margin: 30px 0;
 }
 
 h2 {
@@ -84,26 +130,24 @@ h2 {
 }
 
 .description {
-  /* height: calc(100vh - 2rem + 40px); */
-  height: 30vh;
-  /* transform: translateY(40px); Move content down by 20px */
-  animation: 1s ease-out 0s 1 popIn;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 20px;
 }
 
-.description * {
-  /* bottom: 0; */
+.description div {
+  padding: 20px;
+  background-color: rgba(255,255,255,0.06);
 }
 
-p {
-  max-width: max-content;
-  text-align: center;
+.description-section {
+  max-height: 70vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
-.description p {
-  font-size: 1.2rem;
-  max-width: 30vw;
-  text-align: start;
-}
+
 
 form {
   display: flex;
@@ -162,10 +206,11 @@ button.pay-button:hover {
   color: white;
   font-size: x-large;
   flex-direction: column;
+  animation: 1s ease-out 0s 1 popIn
 }
 
 #video-header{
-  width: 100vw;
-  height: 400px;
+  width: 100%;
+  height: 550px;
   object-fit: cover;
 }
