@@ -38,7 +38,7 @@ export async function createAccount(email, password, companyName){
     
 }
 
-export async function getVideo(video_name){
-    let url = await getDownloadURL(ref(storage, video_name))
+export async function getFile(file_name){
+    let url = await getDownloadURL(ref(storage, file_name))
     return url;
 }
