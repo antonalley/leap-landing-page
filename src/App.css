@@ -15,6 +15,27 @@
   }
 }
 
+@media(max-width:768px)
+{
+  .row-col-adapt {
+    display: flex;
+    flex-direction: column !important;
+  }
+  .description{
+    grid-template-columns: 1fr !important;
+  }
+  .description-section{
+    margin-bottom: 20px;
+  }
+
+  #mission-img {
+    float: none;
+    margin: 0 auto 10px auto; /* Adjust margins as needed */
+    display: block;
+    width: 100%;
+  }
+}
+
 body {
   /* font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
   -webkit-font-smoothing: antialiased;
@@ -36,6 +57,11 @@ body {
 
 * {
   font-family: 'Maven Pro';
+}
+
+.row-col-adapt {
+  display: flex;
+  flex-direction: row;
 }
 
 #home {
@@ -71,8 +97,6 @@ section {
 }
 
 .options {
-  display: flex;
-  flex-direction: row;
   background-color: rgba(255, 255, 255, 0.06);
   padding: 30px;
 }
@@ -109,9 +133,9 @@ section {
 }
 
 .timeline-marker {
-  padding: 5px !important;
-  width: 10px;
-  height: 10px;
+  padding: 0px !important;
+  width: 1em;
+  height: 1em;
   background-color: #007bff;
   border-radius: 50%;
   margin-right: 10px;

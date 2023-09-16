@@ -133,7 +133,7 @@ function App() {
                         
                         </div>
                     </section>
-                    <section className="options">
+                    <section className="options row-col-adapt">
                         <div>
                             <h2>Become an Early Adopter</h2>
                             <ul className='points'>
