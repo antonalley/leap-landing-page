@@ -1,8 +1,5 @@
 /* App.css */
-@font-face {
-  font-family: 'Maven Pro';
-  src: url(./fonts/MavenPro-VariableFont_wght.ttf);
-}
+
 
 @keyframes popIn {
   0% {
@@ -34,16 +31,6 @@
     display: block;
     width: 100%;
   }
-}
-
-body {
-  /* font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
-  -webkit-font-smoothing: antialiased;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
 }
 
 .landing-page {
@@ -222,7 +209,7 @@ button.pay-button:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgba(0,0,0,0.6);
   pointer-events: none;
   display: flex;
   justify-content: center;
