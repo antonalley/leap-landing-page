@@ -265,3 +265,12 @@ button.pay-button:hover {
   align-items: center;
   align-content:center;
 }
+
+#video-calc-demo {
+  width: 90%;
+}
+
+.timeline-media {
+  display: flex;
+  justify-content: center;
+}

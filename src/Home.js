@@ -12,6 +12,7 @@ function Home() {
     const [groupPicURL, setGroupPicURL] = useState(null);
     const [slides1URL, setSlides1URL] = useState(null);
     const [slides2URL, setSlides2URL] = useState(null);
+    const [calcDemoURL, setCalcDemoURL] = useState(null);
 
     async function joinWaitlist(e) {
         e.preventDefault();
@@ -60,6 +61,9 @@ function Home() {
             setSlides1URL(s1);
             let s2 = await getFile("Trevors_slides.MP4")
             setSlides2URL(s2);
+
+            let cd = await getFile("CalcDemo.MP4")
+            setCalcDemoURL(cd);
         }
         getVideoUrl();
     }, [])
@@ -98,10 +102,19 @@ function Home() {
                                 <div className="timeline-marker"></div>
                                 Calulator App release
                             </div>
+                            <div className="timeline-point timeline-media">
+                            {calcDemoURL ?
+                            <video autoPlay loop muted playsInline id="video-calc-demo">
+                                <source src={calcDemoURL} type="video/mp4" />
+                            </video> :
+                            <div id="video-slides-1" className="video-calc-demo"></div>
+                            }
+                            </div>
                             <div className="timeline-point">
                                 <div className="timeline-marker"></div>
                                 Accept payments from calculator App
                             </div>
+                            
                             <div className="timeline-point">
                                 <div className="timeline-marker"></div>
                                 Customer List, editing, and filtering
@@ -177,7 +190,7 @@ function Home() {
                         <div>
                             <h2>Become an Early Adopter</h2>
                             <p className="points">
-                                If you're ready to join young entrepreneurs changing their lives, become an early adopter for just $5. Get all these features and prove your commitment to taking the leap towards financial freedom. 
+                            If you're ready to join young entrepreneurs changing their lives, especially if you currently run a window servicing business become an early adopter for just $5. Get all these features and prove your commitment to taking the leap towards financial freedom.
                             </p>
                             <ul className='points'>
                                 <li>Exclusive Access to the most recent version of the app</li>
