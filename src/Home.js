@@ -150,19 +150,12 @@ function Home() {
                         </div>
                     </section> 
                     <section className="options row-col-adapt">
-                        <div>
-                            <h2>Become an Early Adopter</h2>
-                            <ul className='points'>
-                                <li>Exclusive Access to the most recent version of the app</li>
-                                <li>We will highly consider your input on features</li>
-                                <li>Get 1 month free on product release (~150$ Value)</li>
-                                <li>Access to our private discord server with peer mentorship, advice, and a community of people building their businesses like you</li>
-                            </ul>
-                            <button className="pay-button" onClick={()=>setAccountStatus("createaccount")} style={{backgroundColor:'var(--rally-green)'}}>Join the Community</button>
-                        </div>
-                        {!joinedWaitlist ?
+                    {!joinedWaitlist ?
                             <div>
                                 <h2>Join the Waitlist</h2>
+                                <p className="points">
+                                We are slowly releasing all of the software necessary in a fully custom window washing CRM, when we have the entire package finished. We will let you know and you can be one of the first to experience software made just for you.
+                                </p>
                                 <ul className='points'>
                                     <li>Get updates on app progress</li>
                                     <li>Get notified when stable version is launched</li>
@@ -181,8 +174,19 @@ function Home() {
                                 <p>You will receive updates from us soon</p>
                             </div>
                         }
-
-
+                        <div>
+                            <h2>Become an Early Adopter</h2>
+                            <p className="points">
+                                If you're ready to join young entrepreneurs changing their lives, become an early adopter for just $5. Get all these features and prove your commitment to taking the leap towards financial freedom. 
+                            </p>
+                            <ul className='points'>
+                                <li>Exclusive Access to the most recent version of the app</li>
+                                <li>We will highly consider your input on features</li>
+                                <li>Get 1 month free on product release (~150$ Value)</li>
+                                <li>Access to our private discord server with peer mentorship, advice, and a community of people building their businesses like you</li>
+                            </ul>
+                            <button className="pay-button" onClick={()=>setAccountStatus("createaccount")} style={{backgroundColor:'var(--rally-green)'}}>Join the Community</button>
+                        </div>
                     </section>
                 </div>
             </div>
