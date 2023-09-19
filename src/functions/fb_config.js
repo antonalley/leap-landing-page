@@ -1,9 +1,9 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyAMVHwcvLaylZ5u-taypf8jDkg4gdRGodk",
-    authDomain: "service-leap-prod.firebaseapp.com",
-    projectId: "service-leap-prod",
-    storageBucket: "service-leap-prod.appspot.com",
-    messagingSenderId: "867057958905",
-    appId: "1:867057958905:web:00740c0443984ddd824728",
-    measurementId: "G-GZZ1EPYMRY"
-  };
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+};
