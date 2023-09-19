@@ -1,8 +1,5 @@
 const functions = require('firebase-functions');
-// const admin = require('firebase-admin');
 const stripe = require('stripe')(functions.config().stripe.secret_key);
-
-// admin.initializeApp();
 
 exports.payForBeta = functions.https.onCall(async (data, context) => {
   try {
@@ -15,8 +12,9 @@ exports.payForBeta = functions.https.onCall(async (data, context) => {
     const charge = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: 'payment',
-        success_url: `http://localhost:3000/?paymentsuccess=true&user_id=${user_id}`,
-        cancel_url: `http://localhost:3000/?paymentsuccess=false&user_id=${user_id}`,
+        invoice_creation: true,
+        success_url: `https://service-leap-prod.web.app?paymentsuccess=true&user_id=${user_id}`,
+        cancel_url: `https://service-leap-prod.web.app?paymentsuccess=false&user_id=${user_id}`,
         line_items: [
             {
                 quantity: 1,
@@ -31,7 +29,7 @@ exports.payForBeta = functions.https.onCall(async (data, context) => {
         ]
     });
 
-    console.log('Chare completed wiht id', charge.id)
+    console.log('Charge completed with id', charge.id)
 
     // You can add code here to update user data or perform other actions after successful payment
 

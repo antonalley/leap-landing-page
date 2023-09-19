@@ -96,7 +96,7 @@ function AccountDialog({ accountStatus, setAccountStatus }){
     else if (accountStatus === "failed"){
         return (
             <div>
-                Failed to Create an account. Try again, or for assistance contact Anton Alley 630.943.0041
+                Failed to Create an account or Cancelled payment. Try again, or for assistance contact Anton Alley 630.943.0041
             </div>
         )
     }

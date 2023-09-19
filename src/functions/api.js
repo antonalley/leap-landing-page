@@ -3,8 +3,6 @@ import { db, functions, storage } from "./fb_init";
 import { createUserWithEmailAndPassword, getAuth } from "@firebase/auth";
 import { getDownloadURL, ref } from "firebase/storage";
 import { httpsCallable } from "@firebase/functions";
-import Stripe from "stripe";
-
 
 export async function addToWaitlist(email, companyName){
     // TODO
@@ -48,7 +46,6 @@ export async function getFile(file_name){
 
 export async function payNowEarlyAdopter(user_id){
     const PAY = httpsCallable(functions, 'payForBeta')
-    const stripe = Stripe("pk_test_51NpIzVLKgquOPe9eafiySJVS3jUodppWsNO74fjj2ickW0lBwoR4gD9Ddy4cxHvxVkT5wjm1FyCImbGNrl3okXOF007rlsghpk")
     try {
         let result = await PAY({ user_id : user_id})
         let msg = result.data.message;

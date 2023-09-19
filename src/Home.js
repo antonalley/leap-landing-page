@@ -5,7 +5,6 @@ import NavBar from './NavBar';
 import AccountFlow from './AccountDialog';
 
 function Home() {
-    
     const companyName = useRef(null);
     const email = useRef(null);
     const [joinedWaitlist, setjoinedWaitlist] = useState(null);
