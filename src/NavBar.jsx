@@ -23,7 +23,7 @@ export default function NavBar({ setBetaOpen }){
     return (
         <header className={scrolled && "header-scrolled"}>
             <div style={{ fontSize: '2rem' }}>Service Leap</div>
-            <Button variant="contained" onClick={()=>setBetaOpen(true)}>Join Priority Waitlist</Button>
+            <Button variant="contained" onClick={()=>setBetaOpen(true)} style={{backgroundColor:'var(--rally-green)'}}>Join the Community</Button>
         </header>
     )
 }

@@ -17,3 +17,13 @@ code {
   font-family: 'Maven Pro';
   src: url(./fonts/MavenPro-VariableFont_wght.ttf);
 }
+
+:root {
+  --rally-green: #1EB980;
+  --rally-darkgreen: #045D56;
+  --rally-orange: #FF6859;
+  --rally-yellow: #FFCF44;
+  --rally-purple: #B15DFF;
+  --rally-blue: #72DEFF;
+  --background-gray: #333;
+}

@@ -9,7 +9,9 @@ function Home() {
     const email = useRef(null);
     const [joinedWaitlist, setjoinedWaitlist] = useState(null);
     const [accountStatus, setAccountStatus] = useState(null);
-    const [groupPicURL, setGroupPicURL] = useState(null)
+    const [groupPicURL, setGroupPicURL] = useState(null);
+    const [slides1URL, setSlides1URL] = useState(null);
+    const [slides2URL, setSlides2URL] = useState(null);
 
     async function joinWaitlist(e) {
         e.preventDefault();
@@ -53,6 +55,11 @@ function Home() {
 
             let groupPic = await getFile("serviceleapgroup.JPG")
             setGroupPicURL(groupPic);
+
+            let s1 = await getFile("James_slides.MP4")
+            setSlides1URL(s1);
+            let s2 = await getFile("Trevors_slides.MP4")
+            setSlides2URL(s2);
         }
         getVideoUrl();
     }, [])
@@ -64,8 +71,12 @@ function Home() {
                 <div id="video-header-container">
                     <div id="video-overlay">
                         <div style={{ maxWidth: '75%', wordWrap: 'normal' }}>
-                            <div style={{ fontSize: '2.3em' }}>The CRM built for Window Washers</div>
-                            <div style={{ fontSize: '0.7em', maxWidth: '40%', marginLeft: '20px' }}>Are you a small window washer looking to grow your business? Our CRM helps you manage sales and streamline operations so you can focus on growing your company and brand.</div>
+                            <div className="vh-title">
+                                You have the skills, We have the tools
+                            </div>
+                            <div className="vh-subtitle" style={{ }}>
+                                We have all of the software and connections you need to start your first window servicing business, or grow the business you have made
+                            </div>
                         </div>
                     </div>
                     {headerVideoURL ?
@@ -108,14 +119,36 @@ function Home() {
                             <h2>Mission</h2>
                             
                             <p>{groupPicURL && <img id="mission-img" src={groupPicURL} alt="Mission"></img>}
-                            At Service Leap, we're dedicated to enabling you in constructing your first business. We provide training and essential tools that empower anyone, including you, to earn thousands of dollars monthly, or even weekly, through starting and running your service business effectively.
-                            
-                            With our custom CRM designed for Window Servicing, not only do you receive these tools at no monthly cost but you will also gain access to our customer trading system. Here, you can build a client list, establish your brand, gain experience, and earn respect. You can even sell your business for a substantial profit when it comes time for you to embark on your next venture.
-
-                            Service Leap is your partner on the path to financial freedom. Are you ready to take the leap?</p>
+                            We're here to help you take the leap.<br /><br />
+                            We are three friends who met in an entrepreneurship class, identified software issues in the window servicing industry, and are creating the perfect solution.<br /><br />
+                            Now, we're launching the Leap Community to empower window servicing businesses and individuals jump into this booming industry. Join us as we help you thrive in an industry with over 39,000 new homes being constructed just this year in Utah. <br /><br />
+                            Ready to take the leap?
+                            </p>
                         
                         </div>
                     </section>
+                    <section className="quote-slides row-col-adapt">
+                        <div>
+                            <div className='slides-overlay'></div>
+                            {slides1URL ?
+                            <video autoPlay loop muted playsInline id="video-slides-1" className="video-slides">
+                                <source src={slides1URL} type="video/mp4" />
+                            </video> :
+                            <div id="video-slides-1" className="video-slides"></div>
+                            }
+                            
+                            
+                        </div>
+                        <div>
+                        <div className='slides-overlay'></div>
+                            {slides2URL ?
+                                <video autoPlay loop muted playsInline id="video-slides-2" className="video-slides">
+                                    <source src={slides2URL} type="video/mp4" />
+                                </video> :
+                                <div id="video-slides-2" className="video-slides"></div>
+                                }
+                        </div>
+                    </section> 
                     <section className="options row-col-adapt">
                         <div>
                             <h2>Become an Early Adopter</h2>
@@ -125,7 +158,7 @@ function Home() {
                                 <li>Get 1 month free on product release (~150$ Value)</li>
                                 <li>Access to our private discord server with peer mentorship, advice, and a community of people building their businesses like you</li>
                             </ul>
-                            <button className="pay-button" onClick={()=>setAccountStatus("createaccount")}>Learn More</button>
+                            <button className="pay-button" onClick={()=>setAccountStatus("createaccount")} style={{backgroundColor:'var(--rally-green)'}}>Join the Community</button>
                         </div>
                         {!joinedWaitlist ?
                             <div>
@@ -138,7 +171,7 @@ function Home() {
                                 <form onSubmit={joinWaitlist}>
                                     <input ref={companyName} type="text" placeholder="Enter your Company name" />
                                     <input ref={email} type="email" placeholder="Enter your email" />
-                                    <button type="submit">Join Waitlist</button>
+                                    <button type="submit" style={{backgroundColor:'var(--rally-purple)'}}>Join Waitlist</button>
                                 </form>
                             </div>
                             :
