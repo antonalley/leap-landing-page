@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import { Button } from "@mui/base";
 
-export default function NavBar(){
+export default function NavBar({ setBetaOpen }){
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export default function NavBar(){
     return (
         <header className={scrolled && "header-scrolled"}>
             <div style={{ fontSize: '2rem' }}>Service Leap</div>
-            <Button variant="contained" onClick={goToEA}>Join Priority Waitlist</Button>
+            <Button variant="contained" onClick={()=>setBetaOpen(true)}>Join Priority Waitlist</Button>
         </header>
     )
 }

@@ -1,7 +1,9 @@
-import { addDoc, collection, doc, setDoc } from "@firebase/firestore";
-import { db, storage } from "./fb_init";
+import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "@firebase/firestore";
+import { db, functions, storage } from "./fb_init";
 import { createUserWithEmailAndPassword, getAuth } from "@firebase/auth";
 import { getDownloadURL, ref } from "firebase/storage";
+import { httpsCallable } from "@firebase/functions";
+import Stripe from "stripe";
 
 
 export async function addToWaitlist(email, companyName){
@@ -28,10 +30,11 @@ export async function createAccount(email, password, companyName){
                 user_id: uid,
                 company_name: companyName
             })
+
+            return uid;
         } else{
             return false;
         }
-        return true;
     } catch {
         return false;
     }
@@ -41,4 +44,38 @@ export async function createAccount(email, password, companyName){
 export async function getFile(file_name){
     let url = await getDownloadURL(ref(storage, file_name))
     return url;
+}
+
+export async function payNowEarlyAdopter(user_id){
+    const PAY = httpsCallable(functions, 'payForBeta')
+    const stripe = Stripe("pk_test_51NpIzVLKgquOPe9eafiySJVS3jUodppWsNO74fjj2ickW0lBwoR4gD9Ddy4cxHvxVkT5wjm1FyCImbGNrl3okXOF007rlsghpk")
+    try {
+        let result = await PAY({ user_id : user_id})
+        let msg = result.data.message;
+        let url = result.data.url
+        console.log(msg, url)
+        return url;
+    } catch(error) {
+        console.log('Failed to complete payment: ')
+        console.error(error)
+        return false;
+    }
+    
+}
+
+export async function userSuccessPayEarlyAdopter(user_id){
+    try{
+        let userQuery = query(collection(db, "users"), where("user_id", "==", user_id))
+        const queryResults = await getDocs(userQuery);
+        queryResults.forEach((item) => {
+            updateDoc(doc(db, "users", item.id),{
+                status_codes: arrayUnion("early_adopter_paid_true")
+            })
+        })
+        return true;
+    } catch (error){
+        console.error(error);
+        return false;
+    }
+    
 }

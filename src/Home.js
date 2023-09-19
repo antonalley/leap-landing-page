@@ -1,21 +1,15 @@
 import './Home.css';
 import { useEffect, useRef, useState } from "react";
-import { addToWaitlist, createAccount, getFile } from "./functions/api"
-import { Dialog, DialogTitle, Grid, ListItem, Modal, Paper, TextField, Typography } from "@mui/material";
-import { Button } from "@mui/base";
-import { Box, Stack } from "@mui/system";
+import { addToWaitlist, createAccount, getFile, userSuccessPayEarlyAdopter } from "./functions/api"
 import NavBar from './NavBar';
+import AccountFlow from './AccountDialog';
 
 function Home() {
     
     const companyName = useRef(null);
     const email = useRef(null);
-    const password = useRef(null);
     const [joinedWaitlist, setjoinedWaitlist] = useState(null);
-    const [betaOpen, setBetaOpen] = useState(false);
-    const [createdAccount, setCreatedAccount] = useState(false);
-    const [accountCreateError, setAccountCreateError] = useState(false);
-    
+    const [accountStatus, setAccountStatus] = useState(null);
     const [groupPicURL, setGroupPicURL] = useState(null)
 
     async function joinWaitlist(e) {
@@ -25,19 +19,31 @@ function Home() {
     }
 
     function betaClose() {
-        setBetaOpen(false);
-    }
-
-    async function createAdminAccount(e) {
-        e.preventDefault();
-        let success = await createAccount(email.current.value, password.current.value, companyName.current.value);
-        if (success) {
-            setCreatedAccount(true)
-            setBetaOpen(false);
+        if (accountStatus !== "success"){
+            setAccountStatus(null);
         } else {
-            setAccountCreateError(true);
+            setAccountStatus("finished");
         }
     }
+
+    useEffect(() => {
+        // Check the URL params to see payment status
+        let params = new URLSearchParams(window.location.search);
+        let paymentsuccess = params.get('paymentsuccess')
+        let uid = params.get('user_id')
+
+        if (paymentsuccess && paymentsuccess === "true"){
+            // TODO: verify account
+            // TODO: add a key so it can't be replicated ( For security - but we don't really care about that right now)
+            setAccountStatus("success")
+            // Set indicator in firestore
+            userSuccessPayEarlyAdopter(uid);
+        }
+        else if (paymentsuccess && paymentsuccess === "false"){
+            setAccountStatus("failed")
+        }
+
+    }, [])
 
     const [headerVideoURL, setHeaderVideoURL] = useState(null);
 
@@ -52,14 +58,9 @@ function Home() {
         getVideoUrl();
     }, [])
 
-    function goToEA(){
-        window.location = "/earlyadopter";
-    }
-
-
     return (
         <div className="landing-page">
-            <NavBar />
+            <NavBar setBetaOpen={()=>setAccountStatus("createaccount")}/>
             <div>
                 <div id="video-header-container">
                     <div id="video-overlay">
@@ -122,46 +123,11 @@ function Home() {
                             <ul className='points'>
                                 <li>Exclusive Access to the most recent version of the app</li>
                                 <li>We will highly consider your input on features</li>
-                                <li>Get 1 month free on product release (~200$ Value)</li>
+                                <li>Get 1 month free on product release (~150$ Value)</li>
+                                <li>Access to our private discord server with peer mentorship, advice, and a community of people building their businesses like you</li>
                             </ul>
-                            <button className="pay-button" onClick={goToEA}>Learn More</button>
+                            <button className="pay-button" onClick={()=>setAccountStatus("createaccount")}>Learn More</button>
                         </div>
-                        <Dialog
-                            open={createdAccount}
-                            onClose={() => setCreatedAccount(false)}
-                        >
-                            <DialogTitle>Successfully Created an account</DialogTitle>
-                        </Dialog>
-                        <Dialog
-                            open={betaOpen}
-                            onClose={betaClose}
-                        >
-                            <DialogTitle>Create an admin account for your company</DialogTitle>
-                            <Paper elevation={3}>
-                                <Stack spacing={2}>
-                                    <form onSubmit={createAdminAccount}>
-                                        <ListItem>
-                                            <TextField label="Company Name" type="text" fullWidth inputRef={companyName}></TextField>
-                                        </ListItem>
-                                        <ListItem>
-                                            <TextField label="Email" type="email" fullWidth inputRef={email} ></TextField>
-                                        </ListItem>
-                                        <ListItem>
-                                            <TextField label="Password" type="password" fullWidth inputRef={password}></TextField>
-                                        </ListItem>
-                                        <ListItem>
-                                            <Button type="submit" variant="contained" color="primary">Create Account</Button>
-                                            <Button variant="outlined" color="error" onClick={() => setBetaOpen(false)}>Cancel</Button>
-                                        </ListItem>
-                                        <ListItem>
-                                            {accountCreateError && <div style={{ color: "red" }}>Failed to create account. Try again.</div>}
-                                        </ListItem>
-                                    </form>
-
-                                </Stack>
-                            </Paper>
-
-                        </Dialog>
                         {!joinedWaitlist ?
                             <div>
                                 <h2>Join the Waitlist</h2>
@@ -188,6 +154,7 @@ function Home() {
                     </section>
                 </div>
             </div>
+            <AccountFlow accountStatus={accountStatus} onClose={betaClose} setAccountStatus={setAccountStatus}/>
         </div>
     );
 }
