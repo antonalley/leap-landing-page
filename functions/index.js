@@ -12,7 +12,6 @@ exports.payForBeta = functions.https.onCall(async (data, context) => {
     const charge = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: 'payment',
-        invoice_creation: true,
         success_url: `https://service-leap-prod.web.app?paymentsuccess=true&user_id=${user_id}`,
         cancel_url: `https://service-leap-prod.web.app?paymentsuccess=false&user_id=${user_id}`,
         line_items: [
