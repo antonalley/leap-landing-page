@@ -50,7 +50,7 @@ function AccountDialog({ accountStatus, setAccountStatus }){
             <Stack spacing={2}>
                 <form onSubmit={createAdminAccount}>
                     <ListItem>
-                        <TextField label="Company Name" type="text" fullWidth inputRef={companyName}></TextField>
+                        <TextField label="Company/Name" type="text" fullWidth inputRef={companyName}></TextField>
                     </ListItem>
                     <ListItem>
                         <TextField label="Email" type="email" fullWidth inputRef={email} ></TextField>
@@ -60,7 +60,7 @@ function AccountDialog({ accountStatus, setAccountStatus }){
                     </ListItem>
                     <ListItem style={{display: 'flex', flexDirection:'row', justifyContent:'space-between'}}>
                         <Button id="create-account-button" type="submit" variant="contained" color="primary">Create Account</Button>
-                        <Button id="cancel-button" variant="outlined" color="error" onClick={() => setAccountStatus(null)}>Cancel</Button>
+                        <Button id="cancel-button" variant="outlined" color="error" onClick={() => setAccountStatus(null)} style={{marginLeft:'1%'}}>Cancel</Button>
                     </ListItem>
                 </form>
 
@@ -69,16 +69,17 @@ function AccountDialog({ accountStatus, setAccountStatus }){
     }
     else if (accountStatus === "pay"){
         return (
-            <div>
+            <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems: 'center'}}>
                 <h2>Pay 5$ To get these benefits: </h2>
                 <ul className='points'>
+                    <li>Access to quoting calculator</li>
                     <li>Exclusive Access to the most recent version of the app</li>
                     <li>We will highly consider your input on features</li>
                     <li>Get 1 month free on product release (~150$ Value)</li>
                     <li>Access to our private discord server with peer mentorship, advice, and a community of people building their businesses like you</li>
                 </ul>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
-                <Button color="success" style={{backgroundColor:'green'}} onClick={paynow}>Pay Now</Button>
+                <Button color="success" style={{backgroundColor:'var(--rally-green)'}} onClick={paynow}>Pay Now</Button>
                 </div>
             </div>
         )
@@ -86,10 +87,10 @@ function AccountDialog({ accountStatus, setAccountStatus }){
     else if (accountStatus === "success"){
         return (
             <div>
-                Successfully Created Account, you will be notified shortly.
-                <p>Now you can join the discord here: </p>
+                Successfully Created Account, you will be emailed within a day
+                {/* <p>Now you can join the discord here: </p>
                 <p>Now you can download the app here: </p>
-                <p>More information will be sent in an email</p>
+                <p>More information will be sent in an email</p> */}
             </div>
         )
     }

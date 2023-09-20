@@ -175,7 +175,7 @@ function Home() {
                                     <li>Discount first month of use</li>
                                 </ul>
                                 <form onSubmit={joinWaitlist}>
-                                    <input ref={companyName} type="text" placeholder="Enter your Company name" />
+                                    <input ref={companyName} type="text" placeholder="Enter your Company/Name" />
                                     <input ref={email} type="email" placeholder="Enter your email" />
                                     <button type="submit" style={{backgroundColor:'var(--rally-purple)'}}>Join Waitlist</button>
                                 </form>
