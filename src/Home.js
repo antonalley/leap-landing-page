@@ -193,6 +193,7 @@ function Home() {
                             If you're ready to join young entrepreneurs changing their lives, especially if you currently run a window servicing business become an early adopter for just $5. Get all these features and prove your commitment to taking the leap towards financial freedom.
                             </p>
                             <ul className='points'>
+                                <li>Access to quoting calculator as shown above</li>
                                 <li>Exclusive Access to the most recent version of the app</li>
                                 <li>We will highly consider your input on features</li>
                                 <li>Get 1 month free on product release (~150$ Value)</li>
