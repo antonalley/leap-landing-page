@@ -38,3 +38,49 @@ exports.payForBeta = functions.https.onCall(async (data, context) => {
     throw new functions.https.HttpsError('internal', 'Payment failed.');
   }
 });
+
+exports.CreateConnectAccount = functions.https.onCall(async (data, context) => {
+  // TODO: not tested yet
+  try {
+
+    const { user_email } = data;
+
+    // Create Account
+    const account = await stripe.accounts.create({
+      type: "custom",
+      country: 'US',
+      email: user_email,
+      capabilities: {
+        card_payments: {requested: true},
+        transfers: {requested: true},
+      }
+    })
+
+    // Get Onboarding link
+    const accountLink = await stripe.accountLinks.create({
+      account: account.id,
+      refresh_url: 'http://localhost:3000/account/settings?stripe_created=false',
+      return_url: 'http://localhost:3000/account/settings?stripe_created=true',
+      type: 'account_onboarding',
+    })
+
+    return { message: 'success', url: accountLink.url, connect_account_id: account.id}
+
+  } catch (error) {
+    console.error(error);
+    throw new functions.https.HttpsError('internal', 'Account Create Failed');
+
+  }
+})
+
+exports.ChargeClient = functions.https.onCall(async (data, context) => {
+
+  try {
+    // TODO
+
+  } catch (error) {
+    console.error(error);
+    throw new functions.https.HttpsError('internal', 'Charge Failed');
+  }
+
+})
