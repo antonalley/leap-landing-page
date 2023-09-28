@@ -1,8 +1,9 @@
 import './Home.css';
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { addToWaitlist, createAccount, getFile, userSuccessPayEarlyAdopter } from "./functions/api"
 import NavBar from './NavBar';
 import AccountFlow from './AccountDialog';
+import { UserInfoContext } from './App';
 
 function Home() {
     const companyName = useRef(null);
@@ -13,6 +14,7 @@ function Home() {
     const [slides1URL, setSlides1URL] = useState(null);
     const [slides2URL, setSlides2URL] = useState(null);
     const [calcDemoURL, setCalcDemoURL] = useState(null);
+    const {userInfo} = useContext(UserInfoContext);
 
     async function joinWaitlist(e) {
         e.preventDefault();
@@ -162,31 +164,33 @@ function Home() {
                                 }
                         </div>
                     </section> 
+                    {!userInfo &&
                     <section className="options row-col-adapt">
+                    
                     {!joinedWaitlist ?
-                            <div>
-                                <h2>Join the Waitlist</h2>
-                                <p className="points">
-                                We are slowly releasing all of the software necessary in a fully custom window washing CRM, when we have the entire package finished. We will let you know and you can be one of the first to experience software made just for you.
-                                </p>
-                                <ul className='points'>
-                                    <li>Get updates on app progress</li>
-                                    <li>Get notified when stable version is launched</li>
-                                    <li>Discount first month of use</li>
-                                </ul>
-                                <form onSubmit={joinWaitlist}>
-                                    <input ref={companyName} type="text" placeholder="Enter your Company/Name" />
-                                    <input ref={email} type="email" placeholder="Enter your email" />
-                                    <button type="submit" style={{backgroundColor:'var(--rally-purple)'}}>Join Waitlist</button>
-                                </form>
-                            </div>
-                            :
-                            <div>
-                                <h2>Welcome {joinedWaitlist && joinedWaitlist}!</h2>
-                                <p>Thank you for joining our waitlist!</p>
-                                <p>You will receive updates from us soon</p>
-                            </div>
-                        }
+                        <div>
+                            <h2>Join the Waitlist</h2>
+                            <p className="points">
+                            We are slowly releasing all of the software necessary in a fully custom window washing CRM, when we have the entire package finished. We will let you know and you can be one of the first to experience software made just for you.
+                            </p>
+                            <ul className='points'>
+                                <li>Get updates on app progress</li>
+                                <li>Get notified when stable version is launched</li>
+                                <li>Discount first month of use</li>
+                            </ul>
+                            <form onSubmit={joinWaitlist}>
+                                <input ref={companyName} type="text" placeholder="Enter your Company/Name" />
+                                <input ref={email} type="email" placeholder="Enter your email" />
+                                <button type="submit" style={{backgroundColor:'var(--rally-purple)'}}>Join Waitlist</button>
+                            </form>
+                        </div>
+                        :
+                        <div>
+                            <h2>Welcome {joinedWaitlist && joinedWaitlist}!</h2>
+                            <p>Thank you for joining our waitlist!</p>
+                            <p>You will receive updates from us soon</p>
+                        </div>
+                    }
                         <div>
                             <h2>Become an Early Adopter</h2>
                             <p className="points">
@@ -202,6 +206,7 @@ function Home() {
                             <button className="pay-button" onClick={()=>setAccountStatus("createaccount")} style={{backgroundColor:'var(--rally-green)'}}>Join the Community</button>
                         </div>
                     </section>
+                    }
                 </div>
             </div>
             <AccountFlow accountStatus={accountStatus} onClose={betaClose} setAccountStatus={setAccountStatus}/>

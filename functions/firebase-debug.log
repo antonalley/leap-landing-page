@@ -1,0 +1,52 @@
+[debug] [2023-09-28T01:53:40.370Z] ----------------------------------------------------------------------
+[debug] [2023-09-28T01:53:40.372Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2023-09-28T01:53:40.373Z] CLI Version:   11.25.1
+[debug] [2023-09-28T01:53:40.373Z] Platform:      win32
+[debug] [2023-09-28T01:53:40.373Z] Node Version:  v18.12.1
+[debug] [2023-09-28T01:53:40.375Z] Time:          Wed Sep 27 2023 19:53:40 GMT-0600 (Mountain Daylight Time)
+[debug] [2023-09-28T01:53:40.375Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-28T01:53:40.423Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-09-28T01:53:40.651Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-28T01:53:40.651Z] > authorizing via signed-in user (anton.alley@gmail.com)
+[debug] [2023-09-28T01:53:40.652Z] [iam] checking project service-leap-prod for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2023-09-28T01:53:40.654Z] > refreshing access token with scopes: []
+[debug] [2023-09-28T01:53:40.655Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-09-28T01:53:40.656Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[warn] !  Unable to fetch the CLI MOTD and remote config. 
+[debug] [2023-09-28T01:53:40.673Z] Failed to fetch MOTD FirebaseError: Failed to make request to https://firebase-public.firebaseio.com/cli.json
+[debug] [2023-09-28T01:53:40.675Z] [iam] error while checking permissions, command may fail: FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2023-09-28T01:53:40.676Z] > refreshing access token with scopes: []
+[debug] [2023-09-28T01:53:40.677Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-09-28T01:53:40.677Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-09-28T01:53:40.686Z] [functions] service account IAM check errored, deploy may fail:Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci {"name":"FirebaseError","children":[],"exit":1,"message":"Authentication Error: Your credentials are no longer valid. Please run \u001b[1mfirebase login --reauth\u001b[22m\n\nFor CI servers and headless environments, generate a new token with \u001b[1mfirebase login:ci\u001b[22m","status":500}
+[info] 
+[info] === Deploying to 'service-leap-prod'...
+[info] 
+[info] i  deploying functions 
+[debug] [2023-09-28T01:53:40.695Z] > refreshing access token with scopes: []
+[debug] [2023-09-28T01:53:40.696Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-09-28T01:53:40.696Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-09-28T01:53:40.719Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2023-09-28T01:53:40.732Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:144:12)
+    at refreshTokens (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:508:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Client.getAccessToken (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:149:23)
+    at async Client.addAuthHeader (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:140:21)
+    at async Client.request (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:96:34)
+    at async getFirebaseProject (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:295:21)
+    at async needProjectNumber (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\projectUtils.js:46:22)
+    at async prepare (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js:36:27)
+    at async chain (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:35:9)
+    at async deploy (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:79:5)
+[error] 
+[error] Error: Failed to get Firebase project service-leap-prod. Please make sure the project exists and your account has permission to access it.

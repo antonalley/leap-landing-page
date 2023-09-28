@@ -1,7 +1,9 @@
 # Firebase Functions
 
-## To set test api key: 
-`firebase functions:config:set stripe.secret_key=sk_test_51NpIzVLKgquOPe9egtqxZ8NVorGnqPDL5t8ZEi3SbNpTvIl1IpKb5Eaow2JFoSWDmXMhb0GJjT73EN9bvSHwS8ns009fPcFtzF`
+## To set API KEY: 
+`firebase functions:config:set stripe.secret_key=sk_test_***`
+### Testing mode:
+`firebase functions:config:set stripe.testing_secret_key=`
 
 ## to set official api key:
 same thing, but replace api key with actual api key

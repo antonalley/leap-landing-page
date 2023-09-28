@@ -1,16 +1,68 @@
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "@firebase/firestore";
-import { db, functions, storage } from "./fb_init";
-import { createUserWithEmailAndPassword, getAuth } from "@firebase/auth";
+import { auth, db, functions, storage } from "./fb_init";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "@firebase/auth";
 import { getDownloadURL, ref } from "firebase/storage";
 import { httpsCallable } from "@firebase/functions";
+
+export async function getUserData(user_id){
+    try{
+        const udoc = await getUserDocument(user_id)
+        const userDoc = await getDoc(udoc)
+        return userDoc.data()
+    } catch (error){
+        console.error("Error in getting user info", error);
+        return false;
+    }  
+}
+
+export async function getUserDocument(user_id){
+    try{
+        let userQuery = query(collection(db, "users"), where("user_id", "==", user_id))
+        const queryResults = await getDocs(userQuery);
+        console.log(queryResults)
+        const userDoc = queryResults.docs[0];
+        return doc(db, "users", userDoc.id)
+    } catch (error){
+        console.error("Error in getting user Document", error);
+        return false;
+    }  
+}
+
+export async function updateUserInfo(user_id, updates){
+    try {
+        const udoc = await getUserDocument(user_id)
+        const userDoc = await getDoc(udoc)
+        let result = await updateDoc(doc(db, "users", udoc.id), updates);
+        return true;
+
+    } catch(error){
+        console.error("Failed to update User", error)
+        return false;
+    }
+}
 
 export async function addToWaitlist(email, companyName){
     // TODO
     await addDoc(collection(db, "waitlist"), {
         email: email,
-        companyName: companyName
+        company_name: companyName
     })
     return true;
+}
+
+export async function login(email, password){
+    try{
+        let result = await signInWithEmailAndPassword(auth, email, password)
+        if (result && result.user) {
+            console.log("Successfully signed in")
+            return true;
+        }
+        console.log("Failed to login")
+        return false;
+    } catch (error){
+        console.error("Failed to login", error)
+        return false;
+    }
 }
 
 export async function createAccount(email, password, companyName){
@@ -44,10 +96,12 @@ export async function getFile(file_name){
     return url;
 }
 
-export async function payNowEarlyAdopter(user_id){
+export async function payNowEarlyAdopter(user_id, is_testing=false){
     const PAY = httpsCallable(functions, 'payForBeta')
     try {
-        let result = await PAY({ user_id : user_id})
+        let params = { user_id : user_id, redirect_address: window.location.origin}
+        if (is_testing) {params["testing"] = true}
+        let result = await PAY(params)
         let msg = result.data.message;
         let url = result.data.url
         console.log(msg, url)
@@ -77,14 +131,16 @@ export async function userSuccessPayEarlyAdopter(user_id){
     
 }
 
-export async function createStripeConnect(uid, user_email){
+export async function createStripeConnect(uid, user_email, is_testing=false){
     const CreateAcc = httpsCallable(functions, "CreateConnectAccount");
     try{
-        let result = await CreateAcc({user_email: user_email});
+        let params = {user_email: user_email, redirect_address: window.location.origin}
+        if (is_testing) {params["testing"] = true}
+        let result = await CreateAcc(params);
         let msg = result.data.message;
         let url = result.data.url;
         let customer_id = result.data.connect_account_id;
-        // TODO: add customer id to firebase
+        // Add customer id to firebase
         console.log("Create Connect account: ", msg, url, customer_id)
         let success = await addStripeConnectToUser(uid, customer_id);
         if (success){
@@ -110,6 +166,38 @@ export async function addStripeConnectToUser(uid, connect_id){
         return true;
     } catch (error){
         console.error("Failed to add connect id to user", error);
+        return false;
+    }
+}
+
+export async function GetStripeAccount(acct_id, is_testing=false){
+    const GetStripeAccount = httpsCallable(functions, "GetStripeAccount");
+    try{
+        let response = await GetStripeAccount({acct_id:acct_id, testing:is_testing})
+        let result = response.data;
+        if (result.success){
+            return result.account
+        }
+        console.error("Something went wrong getting stripe account: ", result)
+        return false;
+    } catch(error){
+        console.error("Failed to get account info", error)
+        return false;
+    }
+}
+
+export async function GetAccountSetupLink(acct_id, is_testing=false){
+    const GetAccountSetupLink = httpsCallable(functions, "GetAccountSetupLink");
+    try{
+        let response = await GetAccountSetupLink({acct_id:acct_id, testing:is_testing, redirect_address: window.location.origin})
+        let result = response.data;
+        if (result.success){
+            return result.url
+        }
+        console.error("Something went wrong getting stripe account setup link: ", result)
+        return false;
+    } catch(error){
+        console.error("Failed to get setup link: ", error)
         return false;
     }
 }

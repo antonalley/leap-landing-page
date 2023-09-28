@@ -79,6 +79,7 @@ function AccountDialog({ accountStatus, setAccountStatus }){
                     <li>Access to our private discord server with peer mentorship, advice, and a community of people building their businesses like you</li>
                 </ul>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
+                    {/** TODO: loading symbol */}
                 <Button color="success" style={{backgroundColor:'var(--rally-green)'}} onClick={paynow}>Pay Now</Button>
                 </div>
             </div>
@@ -87,10 +88,8 @@ function AccountDialog({ accountStatus, setAccountStatus }){
     else if (accountStatus === "success"){
         return (
             <div>
-                Successfully Created Account, you will be emailed within a day
-                {/* <p>Now you can join the discord here: </p>
-                <p>Now you can download the app here: </p>
-                <p>More information will be sent in an email</p> */}
+                <div>Successfully Created Account, you will be emailed within a day</div>
+                <Button variant="contained" style={{backgroundColor:'var(--rally-green)'}} onClick={()=>window.location.pathname="/account/settings"}>Go to Account Settings</Button>
             </div>
         )
     }
