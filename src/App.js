@@ -1,7 +1,7 @@
 import AccountSettings from "./AccountSettings";
 import Home from "./Home";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import { useContext, createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import { auth } from "./functions/fb_init";
 import { getUserData, getUserDocument } from "./functions/api";
 import { onSnapshot } from "firebase/firestore";

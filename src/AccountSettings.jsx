@@ -1,5 +1,5 @@
 import { Button, CircularProgress } from "@mui/material";
-import { GetAccountSetupLink, GetStripeAccount, createStripeConnect, updateUserInfo } from "./functions/api";
+import { GetAccountSetupLink, GetStripeAccount, createStripeConnect, payNowEarlyAdopter, updateUserInfo } from "./functions/api";
 import { useState, useEffect, useContext } from "react";
 import { auth } from "./functions/fb_init";
 import './account.css'
@@ -43,12 +43,28 @@ function AccountStatus({ accountStatus, userInfo }){
         }
     }
 
+    async function paynow(){
+        // To Payments page
+        if (userInfo){
+            let url = await payNowEarlyAdopter(userInfo.user_id, true);// TODO remove test
+            if (url){
+                console.log('Going to ', url)
+                window.location = url;
+            } else {
+                console.log('URL not loaded')
+            }
+        } else {
+            console.log("UID is null")
+        }
+        
+    }
+
     return (
         <div style={{display:'flex',flexDirection:'row', minWidth:'20vw', justifyContent:'space-between'}}>
             <div>Account Actions</div>
             <div>
                 { accountStatus === "not_paid" ?
-                <Button style={{backgroundColor:'var(--rally-green)'}} variant="contained">Pay 5$ for Early Access</Button>
+                <Button style={{backgroundColor:'var(--rally-green)'}} variant="contained" onClick={paynow}>Pay 5$ for Early Access</Button>
                 : accountStatus === "not_setup" ?
                 <> {isLoading ? <CircularProgress /> : 
                 <Button style={{backgroundColor:'var(--rally-purple)'}} variant="contained" onClick={createAcc}>Setup Payment Account</Button>}
@@ -107,12 +123,14 @@ export default function AccountSettings(){
             let account = await GetStripeAccount(userInfo.stripe_connect_id, true);
             console.log("stripe_account: ", account)
             if (account.charges_enabled){
-                let success = updateUserInfo(userInfo.user_id, {stripe_connect_status:"completed_setup"})
+                let success = await updateUserInfo(userInfo.user_id, {stripe_connect_status:"completed_setup"})
                 if (success){
                     // Workaround to make sure the user info updates
                     // TODO: for somereason the snapshot hook in App.js isn't trigerring when it updates here
-                    window.location.reload();
+                    // window.location.reload();
                 }
+            } else if (account.requirements.disabled_reason = "") {
+                // TODO Find the disabled reason, it could just be waiting approval
             }
         }
     }

@@ -27,7 +27,7 @@ function AccountDialog({ accountStatus, setAccountStatus }){
     async function paynow(){
         // To Payments page
         if (UID){
-            let url = await payNowEarlyAdopter(UID);
+            let url = await payNowEarlyAdopter(UID, true);// TODO remove test
             if (url){
                 console.log('Going to ', url)
                 window.location = url;
