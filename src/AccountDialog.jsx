@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, Grid, ListItem, Modal, Paper, TextField, Typography } from "@mui/material";
+import { CircularProgress, Dialog, DialogTitle, Grid, ListItem, Modal, Paper, TextField, Typography } from "@mui/material";
 import { Button } from "@mui/base";
 import { Box, Stack } from "@mui/system";
 import { useRef, useState } from "react";
@@ -10,6 +10,7 @@ function AccountDialog({ accountStatus, setAccountStatus }){
     const companyName = useRef(null);
     const email = useRef(null);
     const password = useRef(null);
+    const [isLoading, setIsLoadinng] = useState(false);
     const [UID, setUID] = useState(null);
 
     async function createAdminAccount(e) {
@@ -26,6 +27,7 @@ function AccountDialog({ accountStatus, setAccountStatus }){
 
     async function paynow(){
         // To Payments page
+        setIsLoadinng(true);
         if (UID){
             let url = await payNowEarlyAdopter(UID);
             if (url){
@@ -38,6 +40,7 @@ function AccountDialog({ accountStatus, setAccountStatus }){
             console.log("UID is null")
             setAccountStatus("failed")
         }
+        setIsLoadinng(false);
         
     }
     
@@ -79,7 +82,9 @@ function AccountDialog({ accountStatus, setAccountStatus }){
                     <li>Access to our private discord server with peer mentorship, advice, and a community of people building their businesses like you</li>
                 </ul>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
-                <Button color="success" style={{backgroundColor:'var(--rally-green)'}} onClick={paynow}>Pay Now</Button>
+                    { isLoading ? <CircularProgress /> :
+                        <Button color="success" style={{backgroundColor:'var(--rally-green)'}} onClick={paynow}>Pay Now</Button>
+                    }
                 </div>
             </div>
         )
